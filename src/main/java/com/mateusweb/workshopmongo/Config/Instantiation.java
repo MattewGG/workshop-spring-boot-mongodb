@@ -3,6 +3,7 @@ package com.mateusweb.workshopmongo.Config;
 import com.mateusweb.workshopmongo.domain.Post;
 import com.mateusweb.workshopmongo.domain.User;
 import com.mateusweb.workshopmongo.dto.AutorDTO;
+import com.mateusweb.workshopmongo.dto.CommentDTO;
 import com.mateusweb.workshopmongo.repository.PostRepository;
 import com.mateusweb.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,12 @@ public class Instantiation implements CommandLineRunner {
         Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AutorDTO(maria));
         Post post2 = new Post(null, sdf.parse("21/04/2018"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AutorDTO(maria));
 
+        CommentDTO c1 = new CommentDTO("Aproveite", sdf.parse("22/03/2018"), new AutorDTO(bob));
+        CommentDTO c2 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("23/03/2018"), new AutorDTO(alex));
+        CommentDTO c3 = new CommentDTO("Boa viagem!", sdf.parse("23/03/2018"), new AutorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(c1, c2));
+        post2.getComments().addAll(Arrays.asList(c3));
         postRepository.saveAll(Arrays.asList(post1, post2));
 
         maria.getPosts().addAll(Arrays.asList(post1, post2));
